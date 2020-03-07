@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import Pages.WebDriverSingleton;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,14 +13,14 @@ import io.cucumber.java.en.When;
 public class stepDefs {
 	
 	private WebDriver driver;
-	
+	public WebDriverSingleton webdriversingleton;
 	
 	@Given("user goes to UberEats web page")
 	public void user_goes_to_UberEats_web_page() {
 		System.out.println("User goes to www.ubereats.com/");
 		
-		
-		driver = new ChromeDriver();
+		webdriversingleton = WebDriverSingleton.getInstanceOfWebDriverSingleton();
+		driver = webdriversingleton.getWebDriver();
 	}
 
 	@Given("user enters a {string}, {string}, {string}, {string}, and {string}")
