@@ -20,9 +20,4 @@ import io.cucumber.junit.CucumberOptions;
 
 public class MyRunner {
 	
-	@Test
-	public void runTest() {
-		
-	}
-	
 }
