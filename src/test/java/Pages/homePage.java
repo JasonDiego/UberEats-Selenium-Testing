@@ -47,7 +47,7 @@ public class homePage {
 		}
 	}
 	
-	public void clickFindFood() throws NoSuchElementException, InterruptedException {
+	public void clickFindFood() {
 		try {
 			_findFood = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"wrapper\"]/main/div[1]/div[2]/div/button")));
 			
@@ -70,6 +70,12 @@ public class homePage {
 	}
 	
 	public void checkIfRedirected() {
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"wrapper\"]/main/div[1]/nav/div/button[1]")));
 		
+		} catch (NoSuchElementException e) {
+			System.out.println("No Delivery button found!");
+			
+		}
 	}
 }

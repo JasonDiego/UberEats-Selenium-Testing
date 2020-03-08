@@ -29,7 +29,7 @@ public class stepDefs {
 		driver = WebDriverSingleton.getInstanceOfWebDriverSingleton().getWebDriver();
 		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		wait = new WebDriverWait(driver, 8);
+		wait = new WebDriverWait(driver, 15);
 		
 		_homePage = new homePage(driver, wait);
 		_homePage.openHomePage();
@@ -49,6 +49,6 @@ public class stepDefs {
 
 	@Then("user is redirected to search results")
 	public void user_is_redirected_to_search_results() {
-		
+		_homePage.checkIfRedirected();
 	}
 }
