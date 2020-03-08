@@ -43,12 +43,13 @@ public class stepDefs {
 	
 	@When("user clicks Find Food button")
 	public void user_clicks_Find_Food_button() {
-		System.out.println("User clicks Find food button");
+		//System.out.println("User clicks Find food button");
 	    _homePage.clickFindFood();
 	}
 
 	@Then("user is redirected to search results")
 	public void user_is_redirected_to_search_results() {
-		_homePage.checkIfRedirected();
+		//System.out.println("User successfully redirected");
+		_homePage.redirectedToSearchResultsPage();
 	}
 }

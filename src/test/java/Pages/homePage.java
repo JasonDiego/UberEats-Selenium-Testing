@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class homePage {
 	
+	// Title: Food Delivery and Takeout | Order Online | Uber Eats
+	
 	private WebDriver driver;
 	private WebDriverWait wait;
 
@@ -69,12 +71,13 @@ public class homePage {
 		}
 	}
 	
-	public void checkIfRedirected() {
+	public void redirectedToSearchResultsPage() {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"wrapper\"]/main/div[1]/nav/div/button[1]")));
-		
+			//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"wrapper\"]/main/div[1]/nav/div/button[1]")));
+			wait.until(ExpectedConditions.titleIs("Order Food Online | Food Delivery App | Uber Eats"));
+			
 		} catch (NoSuchElementException e) {
-			System.out.println("No Delivery button found!");
+			System.out.println("User not redirected!");
 			
 		}
 	}
