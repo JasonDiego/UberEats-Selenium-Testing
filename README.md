@@ -3,26 +3,41 @@
 *RUNNER
 MyRunner.java:
   Runner class tasked with running a specific Cucumber feature file.
-  
+  Test between different feature files using @testDemoQuery, @testQuery, and @testGiftCard.
+
+
 *PAGE OBJECTS
 homePage.java:
-  Page object for homepage, contains openHomePage(), insertAddress(), and clickFindFood()
-  
+  Page class for UberEats homepage.
+
+searchResultsPage.java:
+  Page class for UberEats search results page after entering a query.
+
+giftCardPage.java:
+  Page class for UberEats gift card series of web pages.
+
+
 *FEATURES
 demoQuery.feature:
-  Contains the feature of entering a search query on www.ubereats.com
+  Entering a search query on www.ubereats.com.
   
 enterQuery.feature:
-  Contains a scenario outline with predetermined search parameters
+  Entering a search query on www.ubereats.com using predetermined arguments.
+
+getGiftCard.feature:
+  Taking steps to getting a gift card for someone via www.ubereats.com.
+
 
 *STEP DEFINITIONS
 stepDefs.java:
-  Contains the step definitions for the feature files
+  Contains the step definitions for all feature files.
   
+
 *CLASSES
 WebDriverSingleton.java:
-  Wrapper class which implements Singleton design pattern for WebDriver
+  Wrapper class which implements Singleton design pattern for WebDriver.
   
+
 *POM
 pom.xml:
   Maven Project Object Model containing project configuration and cucumber-java, cucumber-junit, junit, and junit-platform-commons
