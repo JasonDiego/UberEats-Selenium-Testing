@@ -2,13 +2,9 @@ package StepDefs;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.openqa.selenium.WebDriver;`
+import org.openqa.selenium.support.ui.WebDriverWait;
 import Pages.*;
 
 import io.cucumber.java.en.Given;
@@ -121,8 +117,8 @@ public class stepDefs {
 
 	@Then("user is redirected to Review Your Cart page")
 	public void user_is_redirected_to_Review_Your_Cart_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.inGiftCardPage();
+	    
 	}
 	
 }

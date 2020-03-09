@@ -17,8 +17,8 @@ public class giftCardPage {
 	private WebElement _buyGiftCards, _sendAGift, _recipientName, _userName,
 		_pickAGiftCard, _sendADigitalCard, _giftCardDesign, _howMuch,
 		_incrementAmount, _decrementAmount, _incrementQuantity, _decrementQuantity,
-		_amountTextbox, _quantityTextbox, _addAMessage, _messageTextbox, _next,
-		_recipientEmail, _addToCart;
+		_addAMessage, _messageTextbox, _next, _recipientEmail, _addToCart,
+		_reviewYourCart;
 	
 	public giftCardPage(WebDriver driver, WebDriverWait wait) {
 		this.driver = driver;
@@ -63,7 +63,6 @@ public class giftCardPage {
 			try {
 				Thread.sleep(3000);
 				_sendAGift.click();
-				System.out.println("Button clicked!");
 				
 			} catch (InterruptedException e) {
 				System.out.println("Exception interrupted");
@@ -182,8 +181,6 @@ public class giftCardPage {
 			_decrementAmount = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[1]/div[1]/div/div/button[1]"));
 			_incrementQuantity = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[2]"));
 			_decrementQuantity = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[1]"));
-			_amountTextbox = driver.findElement(By.id("denomination-input"));
-			_quantityTextbox = driver.findElement(By.id("quantity-input"));
 			
 		} catch (NoSuchElementException e) {
 			System.out.println("Textbox or button not found!");
@@ -295,4 +292,20 @@ public class giftCardPage {
 		
 	}
 	
+	public void inGiftCardPage() {
+		_reviewYourCart = driver.findElement(By.xpath("//*[@id=\"app-root\"]/div/main/div[1]/h2/span"));
+		
+		if (!_reviewYourCart.getText().equals("Review Your Cart")) {
+			System.out.println("Unsuccessful redirection to cart review");
+			
+		}
+		
+		try {
+	    	Thread.sleep(8000);
+	    } catch (InterruptedException e) {
+	    	System.out.println("Interrupted exception");
+	    }
+		
+	    driver.close();
+	}
 }
