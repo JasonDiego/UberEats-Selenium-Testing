@@ -73,51 +73,50 @@ public class stepDefs {
 	
 	@When("user goes to gift cards section")
 	public void user_goes_to_gift_cards_section() {
-		
 		_giftCardPage = new giftCardPage(driver, wait);
 		_giftCardPage.clickBuygiftcards();
+		
 	}
 
 	@When("user clicks Send A Gift button")
 	public void user_clicks_Send_A_Gift_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		_giftCardPage.clickSendagift();
+		
 	}
 
-	@When("user enters name of gift recipient and users own name")
-	public void user_enters_name_of_gift_recipient_and_users_own_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@When("user enters name of gift recipient and users own name then clicks Pick a gift card button")
+	public void user_enters_name_of_gift_recipient_and_users_own_name_then_clicks_Pick_a_gift_card_button() {
+	    _giftCardPage.fillInNames("Rob", "Jason");
+	    _giftCardPage.clickPickagiftcard();
 	}
 
 	@When("user clicks Send A Digital Card button")
 	public void user_clicks_Send_A_Digital_Card_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.clickSendadigitalcard();
 	}
 
 	@When("user selects a Gift Card Design and clicks How much? button")
 	public void user_selects_a_Gift_Card_Design_and_clicks_How_much_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.chooseGiftcarddesign();
+	    _giftCardPage.clickHowmuch();
 	}
 
 	@When("user enters an amount and quantity and clicks Add a message button")
 	public void user_enters_an_amount_and_quantity_and_clicks_Add_a_message_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.enterAmountandQuantity(122, 4);
+	    _giftCardPage.clickAddamessage();
 	}
 
 	@When("user adds a personalized message and clicks Next button")
 	public void user_adds_a_personalized_message_and_clicks_Next_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.enterMessage("Treat yourself!");
+	    _giftCardPage.clickNext();
 	}
 
 	@When("user enters recipients email address along with a date and clicks Add to card button")
 	public void user_enters_recipients_email_address_along_with_a_date_and_clicks_Add_to_card_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    _giftCardPage.fillInEmails("rob@mail.com");
+	    _giftCardPage.clickAddtocart();
 	}
 
 	@Then("user is redirected to Review Your Cart page")
