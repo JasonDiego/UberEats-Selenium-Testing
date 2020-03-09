@@ -47,13 +47,13 @@ public class searchResultsPage {
 		if (_more != null) {
 			try {
 				Thread.sleep(3000);
+				_more.click();
 				
 			} catch (InterruptedException e) {
 				System.out.println("Exception interrupted");
 				
 			}
 			
-			_more.click();
 		}
 	}
 	

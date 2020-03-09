@@ -61,13 +61,13 @@ public class homePage {
 		if (_findFood != null) {
 			try {
 				Thread.sleep(3000);
+				_findFood.click();
 				
 			} catch (InterruptedException e) {
 				System.out.println("Exception interrupted");
 				
 			}
 			
-			_findFood.click();
 		}
 	}
 
