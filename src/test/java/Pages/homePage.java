@@ -70,15 +70,5 @@ public class homePage {
 			_findFood.click();
 		}
 	}
-	
-	public void redirectedToSearchResultsPage() {
-		try {
-			//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"wrapper\"]/main/div[1]/nav/div/button[1]")));
-			wait.until(ExpectedConditions.titleIs("Order Food Online | Food Delivery App | Uber Eats"));
-			
-		} catch (NoSuchElementException e) {
-			System.out.println("User not redirected!");
-			
-		}
-	}
+
 }
