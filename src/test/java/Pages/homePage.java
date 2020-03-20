@@ -18,8 +18,7 @@ public class homePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 
-	private WebElement _findFood;
-	private WebElement _address;
+	private WebElement _findFood, _address;
 	
 	public homePage(WebDriver driver, WebDriverWait wait) {
 		this.driver = driver;

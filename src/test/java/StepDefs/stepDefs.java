@@ -1,39 +1,50 @@
 package StepDefs;
 
-import java.util.concurrent.TimeUnit;
+import Pages.*;
 
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import Pages.*;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class stepDefs {
 	
-	private WebDriver driver;
-	private WebDriverWait wait;
+	private static WebDriver driver;
+	private static WebDriverWait wait;
 	
 	private homePage _homePage;
 	private searchResultsPage _searchResultsPage;
 	private giftCardPage _giftCardPage;
+	
+	
+	@Before
+	public static void setUp() {
+		driver = WebDriverSingleton.getInstanceOfWebDriverSingleton().getWebDriver();
+		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		wait = WebDriverWaitSingleton.getInstanceOfWebDriverWaitSingleton().getWebDriverWait();
+	}
+	
+	@After
+	public void cleanUp() {
+		driver.manage().deleteAllCookies();
+		driver.close();
+	}
+	
 	
 	// demoQuery.feature
 	
 	@Given("user goes to UberEats web page")
 	public void user_goes_to_UberEats_web_page() {
 		//System.out.println("User goes to www.ubereats.com/");
-		if (driver == null) {
-			driver = WebDriverSingleton.getInstanceOfWebDriverSingleton().getWebDriver();
-			driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
-			driver.manage().window().maximize();
-			wait = new WebDriverWait(driver, 15);
-			_homePage = new homePage(driver, wait);
-			
-		}
 		
+		_homePage = new homePage(driver, wait);
 		_homePage.openHomePage();
 		_searchResultsPage = new searchResultsPage(driver, wait);
 	}
@@ -57,6 +68,7 @@ public class stepDefs {
 		
 	}
 	
+	
 	// enterQuery.feature
 	
 	@Given("user enters an {string}")
@@ -64,6 +76,7 @@ public class stepDefs {
 		//System.out.println("User enters an " + address);
 	    _homePage.insertAddress(address);
 	}
+	
 	
 	// getGiftCard.feature
 	
