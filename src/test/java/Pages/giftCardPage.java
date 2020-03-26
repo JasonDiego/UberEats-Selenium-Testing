@@ -2,47 +2,104 @@ package Pages;
 
 import java.util.NoSuchElementException;
 
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class giftCardPage {
 	
+	Logger logger = LogManager.getLogger(giftCardPage.class);
+	
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
-	private WebElement _buyGiftCards, _sendAGift, _recipientName, _userName,
-		_pickAGiftCard, _sendADigitalCard, _giftCardDesign, _howMuch,
-		_incrementAmount, _decrementAmount, _incrementQuantity, _decrementQuantity,
-		_addAMessage, _messageTextbox, _next, _recipientEmail, _addToCart,
-		_reviewYourCart;
+	@FindBy(xpath = "//*[@id=\"footer\"]/div/div[1]/div[2]/div[3]/a")
+	private WebElement buyGiftCards;
+	
+	@FindBy(xpath = "//a[@href='https://ubereats.cashstar.com/store/?ref=landingpage']")
+	private WebElement sendAGift;
+	
+	@FindBy(id = "recipientName-input")
+	private WebElement recipientName;
+	
+	@FindBy(id = "senderName-input")
+	private WebElement userName;
+	
+	@FindBy(xpath = "//*[@id=\"app-root\"]/div/main/div/form/div/button")
+	private WebElement pickAGiftCard;
+	
+	@FindBy(xpath = "//*[@id=\"app-root\"]/div/main/div/form/section/div[1]/button")
+	private WebElement sendADigitalCard;
+	
+	@FindBy(xpath = "//*[@id=\"faceplate-4-label\"]/img")
+	private WebElement giftCardDesign;
+	
+	@FindBy(xpath = "//*[@id=\"app-root\"]/div/main/div/form/div[2]/div/button")
+	private WebElement howMuch;
+	
+	//@FindBy(xpath = "/html/body/div[1]/div/main/div/form/section/div/div[1]/div[1]/div/div/button[2]")
+	@FindBy(xpath = "//button[contains(@aria-label, 'Increment amount')]")
+	private WebElement incrementAmount;
+	
+	//@FindBy(xpath = "/html/body/div[1]/div/main/div/form/section/div/div[1]/div[1]/div/div/button[1]")
+	@FindBy(xpath = "//button[contains(@aria-label, 'Decrement amount')]")
+	private WebElement decrementAmount;
+	
+	//@FindBy(xpath = "/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[2]")
+	@FindBy(xpath = "//button[contains(@aria-label, 'Increment quantity')]")
+	private WebElement incrementQuantity;
+	
+	//@FindBy(xpath = "/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[1]")
+	@FindBy(xpath = "//button[contains(@aria-label, 'Decrement quantity')]")
+	private WebElement decrementQuantity;
+	
+	//@FindBy(xpath = "/html/body/div[1]/div/main/div/form/div/button")
+	@FindBy(xpath = "//button[contains(@data-cashbot-id, 'amount-button-submit')]")
+	private WebElement addAMessage;
+	
+	@FindBy(id = "message-input")
+	private WebElement messageTextbox;
+	
+	@FindBy(xpath = "/html/body/div[1]/div/main/div/form/div/button")
+	private WebElement next;
+	
+	@FindBy(id = "recipientEmail-input")
+	private WebElement recipientEmail;
+	
+	@FindBy(xpath = "/html/body/div[1]/div/main/div/form/div/button")
+	private WebElement addToCart;
+	
+	@FindBy(xpath = "//*[@id=\"app-root\"]/div/main/div[1]/h2/span")
+	private WebElement reviewYourCart;
+
 	
 	public giftCardPage(WebDriver driver, WebDriverWait wait) {
 		this.driver = driver;
 		this.wait = wait;
 		PageFactory.initElements(driver, this);
-		
 	}
 	
 	public void clickBuygiftcards() {
 		try {
-			_buyGiftCards = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"footer\"]/div/div[1]/div[2]/div[3]/a")));
+			wait.until(ExpectedConditions.elementToBeClickable(buyGiftCards));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_buyGiftCards != null) {
+		if (buyGiftCards != null) {
 			try {
 				Thread.sleep(3000);
-				_buyGiftCards.click();
+				buyGiftCards.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -52,57 +109,57 @@ public class giftCardPage {
 
 	public void clickSendagift() {
 		try {
-			_sendAGift = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='https://ubereats.cashstar.com/store/?ref=landingpage']")));
+			wait.until(ExpectedConditions.elementToBeClickable(sendAGift));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Send a gift button not found!");
+			logger.error("Send a gift button not found!");
 			
 		}
 		
-		if (_sendAGift != null) {
+		if (sendAGift != null) {
 			try {
 				Thread.sleep(3000);
-				_sendAGift.click();
+				sendAGift.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
 		}
 	}
 	
-	public void fillInNames(String recipientName, String userName) {
+	public void fillInNames(String recipientNameStr, String userNameStr) {
 		try {
-			_recipientName = driver.findElement(By.id("recipientName-input"));
-			_userName = driver.findElement(By.id("senderName-input"));
+			wait.until(ExpectedConditions.elementToBeClickable(recipientName));
+			wait.until(ExpectedConditions.elementToBeClickable(userName));
 		} catch (NoSuchElementException e) {
-			System.out.println("Textbox for name not found!");
+			logger.error("Either recipientName or userName not found!");
 			
 		}
-		_recipientName.click();
-		_recipientName.sendKeys(recipientName);
-		_userName.click();
-		_userName.sendKeys(userName);
+		recipientName.click();
+		recipientName.sendKeys(recipientNameStr);
+		userName.click();
+		userName.sendKeys(userNameStr);
 		
 	}
 
 	public void clickPickagiftcard() {
 		try {
-			_pickAGiftCard = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"app-root\"]/div/main/div/form/div/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(pickAGiftCard));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_pickAGiftCard != null) {
+		if (pickAGiftCard != null) {
 			try {
 				Thread.sleep(3000);
-				_pickAGiftCard.click();
+				pickAGiftCard.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -111,20 +168,20 @@ public class giftCardPage {
 	
 	public void clickSendadigitalcard() {
 		try {
-			_sendADigitalCard = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"app-root\"]/div/main/div/form/section/div[1]/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(sendADigitalCard));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_sendADigitalCard != null) {
+		if (sendADigitalCard != null) {
 			try {
 				Thread.sleep(3000);
-				_sendADigitalCard.click();
+				sendADigitalCard.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -133,20 +190,20 @@ public class giftCardPage {
 
 	public void chooseGiftcarddesign() {
 		try {
-			_giftCardDesign = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"faceplate-4-label\"]/img")));
+			wait.until(ExpectedConditions.elementToBeClickable(giftCardDesign));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_giftCardDesign != null) {
+		if (giftCardDesign != null) {
 			try {
 				Thread.sleep(3000);
-				_giftCardDesign.click();
+				giftCardDesign.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -155,20 +212,20 @@ public class giftCardPage {
 	
 	public void clickHowmuch() {
 		try {
-			_howMuch = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"app-root\"]/div/main/div/form/div[2]/div/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(howMuch));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_howMuch != null) {
+		if (howMuch != null) {
 			try {
 				Thread.sleep(3000);
-				_howMuch.click();
+				howMuch.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -177,13 +234,13 @@ public class giftCardPage {
 
 	public void enterAmountandQuantity(int amount, int quantity) {
 		try {
-			_incrementAmount = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[1]/div[1]/div/div/button[2]"));
-			_decrementAmount = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[1]/div[1]/div/div/button[1]"));
-			_incrementQuantity = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[2]"));
-			_decrementQuantity = driver.findElement(By.xpath("/html/body/div[1]/div/main/div/form/section/div/div[3]/div/div/button[1]"));
+			wait.until(ExpectedConditions.elementToBeClickable(incrementAmount));
+			wait.until(ExpectedConditions.elementToBeClickable(decrementAmount));
+			wait.until(ExpectedConditions.elementToBeClickable(incrementQuantity));
+			wait.until(ExpectedConditions.elementToBeClickable(decrementQuantity));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Textbox or button not found!");
+			logger.error("One or more button(s) not found!");
 			
 		}
 		
@@ -191,11 +248,11 @@ public class giftCardPage {
 		int currAmount = 60;
 		while (currAmount != amount) {
 			if (currAmount < amount) {
-				_incrementAmount.click();
+				incrementAmount.click();
 				currAmount += 5;
 			}
 			else {
-				_decrementAmount.click();
+				decrementAmount.click();
 				currAmount -= 5;
 			}
 		}
@@ -203,11 +260,11 @@ public class giftCardPage {
 		int currQuantity = 1;
 		while (currQuantity != quantity) {
 			if (currQuantity < quantity) {
-				_incrementQuantity.click();
+				incrementQuantity.click();
 				currQuantity++;
 			}
 			else {
-				_decrementQuantity.click();
+				decrementQuantity.click();
 				currQuantity--;
 			}
 		}
@@ -216,20 +273,20 @@ public class giftCardPage {
 
 	public void clickAddamessage() {
 		try {
-			_addAMessage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/main/div/form/div/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(addAMessage));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Add a message button not found!");
+			logger.error("Add a message button not found!");
 			
 		}
 		
-		if (_addAMessage != null) {
+		if (addAMessage != null) {
 			try {
 				Thread.sleep(3000);
-				_addAMessage.click();
+				addAMessage.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
@@ -237,55 +294,70 @@ public class giftCardPage {
 	}
 	
 	public void enterMessage(String msg) {
-		_messageTextbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("message-input")));
-		_messageTextbox.sendKeys(msg);
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(messageTextbox));
+			
+		}
+		catch (NoSuchElementException e) {
+			logger.error("Message textbox not found!");
+			
+		}
+		
+		messageTextbox.sendKeys(msg);
 		 
 	}
 	
 	public void clickNext() {
 		try {
-			_next = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/main/div/form/div/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(next));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Buy gift cards link not found!");
+			logger.error("Buy gift cards link not found!");
 			
 		}
 		
-		if (_next != null) {
+		if (next != null) {
 			try {
 				Thread.sleep(3000);
-				_next.click();
+				next.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 			
 		}
 	}
 	
-	public void fillInEmails(String recipientEmail) {
-		_recipientEmail = wait.until(ExpectedConditions.elementToBeClickable(By.id("recipientEmail-input")));
-		_recipientEmail.sendKeys(recipientEmail);
+	public void fillInEmails(String email) {
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(recipientEmail));
+			
+		} catch (NoSuchElementException e) {
+			logger.error("Textbox to enter recipient email not found!");
+			
+		}
+		
+		recipientEmail.sendKeys(email);
 
 	}
 	
 	public void clickAddtocart() {
 		try {
-			_addToCart = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/main/div/form/div/button")));
+			wait.until(ExpectedConditions.elementToBeClickable(addToCart));
 			
 		} catch (NoSuchElementException e) {
-			System.out.println("Add a cart button not found!");
+			logger.error("Add a cart button not found!");
 			
 		}
 		
-		if (_addToCart != null) {
+		if (addToCart != null) {
 			try {
 				Thread.sleep(3000);
-				_addToCart.click();
+				addToCart.click();
 				
 			} catch (InterruptedException e) {
-				System.out.println("Exception interrupted");
+				logger.error("Exception interrupted");
 				
 			}
 		}
@@ -293,19 +365,19 @@ public class giftCardPage {
 	}
 	
 	public void inGiftCardPage() {
-		_reviewYourCart = driver.findElement(By.xpath("//*[@id=\"app-root\"]/div/main/div[1]/h2/span"));
 		
-		if (!_reviewYourCart.getText().equals("Review Your Cart")) {
-			System.out.println("Unsuccessful redirection to cart review");
+		if (!reviewYourCart.getText().equals("Review Your Cart")) {
+			logger.error("Unsuccessful redirection to cart review");
 			
 		}
 		
 		try {
 	    	Thread.sleep(8000);
+	    	
 	    } catch (InterruptedException e) {
-	    	System.out.println("Interrupted exception");
+	    	logger.error("Interrupted exception");
+	    	
 	    }
 		
-	    driver.close();
 	}
 }

@@ -1,4 +1,4 @@
-@testQuery
+@testTableQuery
 Feature: Enter a search query
 
 Scenario Outline: Open UberEats web page, enter a location and search for nearby food vendors

@@ -14,7 +14,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 	features = {"src/test/resources/features"},
 	glue = {"StepDefs"},
-	tags = "@testGiftCard")
+	tags = "@testGetGiftCard")
 
 public class MyRunner {
 	

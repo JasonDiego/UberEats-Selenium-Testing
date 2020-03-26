@@ -4,6 +4,8 @@ import Pages.*;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,12 +17,14 @@ import io.cucumber.java.en.When;
 
 public class stepDefs {
 	
+	private static final Logger logger = LogManager.getLogger(stepDefs.class);
+	
 	private static WebDriver driver;
 	private static WebDriverWait wait;
 	
-	private homePage _homePage;
-	private searchResultsPage _searchResultsPage;
-	private giftCardPage _giftCardPage;
+	private homePage homePAGE;
+	private searchResultsPage searchResultsPAGE;
+	private giftCardPage giftCardPAGE;
 	
 	
 	@Before
@@ -33,8 +37,13 @@ public class stepDefs {
 	
 	@After
 	public void cleanUp() {
+		try {
 		driver.manage().deleteAllCookies();
 		driver.close();
+		}
+		catch (Exception e) {
+			logger.error("Error closing resources!");
+		}
 	}
 	
 	
@@ -42,29 +51,27 @@ public class stepDefs {
 	
 	@Given("user goes to UberEats web page")
 	public void user_goes_to_UberEats_web_page() {
-		//System.out.println("User goes to www.ubereats.com/");
+		homePAGE = new homePage(driver, wait);
+		homePAGE.openHomePage();
 		
-		_homePage = new homePage(driver, wait);
-		_homePage.openHomePage();
-		_searchResultsPage = new searchResultsPage(driver, wait);
 	}
 
 	@Given("user enters a delivery address")
 	public void user_enters_a_delivery_address() {
-		//System.out.println("User enters a delivery address");
-	    _homePage.insertAddress("New york 10001");
+	    homePAGE.insertAddress("New york 10001");
+	    
 	}
 	
 	@When("user clicks Find Food button")
 	public void user_clicks_Find_Food_button() {
-		//System.out.println("User clicks Find food button");
-	    _homePage.clickFindFood();
+	    homePAGE.clickFindFood();
+	    
 	}
 
 	@Then("user is redirected to search results")
 	public void user_is_redirected_to_search_results() {
-		//System.out.println("User successfully redirected");
-		_searchResultsPage.inSearchResultsPage();
+		searchResultsPAGE = new searchResultsPage(driver, wait);
+		searchResultsPAGE.inSearchResultsPage();
 		
 	}
 	
@@ -73,8 +80,8 @@ public class stepDefs {
 	
 	@Given("user enters an {string}")
 	public void user_enters_an(String address) {
-		//System.out.println("User enters an " + address);
-	    _homePage.insertAddress(address);
+	    homePAGE.insertAddress(address);
+	    
 	}
 	
 	
@@ -82,55 +89,61 @@ public class stepDefs {
 	
 	@When("user goes to gift cards section")
 	public void user_goes_to_gift_cards_section() {
-		_giftCardPage = new giftCardPage(driver, wait);
-		_giftCardPage.clickBuygiftcards();
+		giftCardPAGE = new giftCardPage(driver, wait);
+		giftCardPAGE.clickBuygiftcards();
 		
 	}
 
 	@When("user clicks Send A Gift button")
 	public void user_clicks_Send_A_Gift_button() {
-		_giftCardPage.clickSendagift();
+		giftCardPAGE.clickSendagift();
 		
 	}
 
 	@When("user enters name of gift recipient and users own name then clicks Pick a gift card button")
 	public void user_enters_name_of_gift_recipient_and_users_own_name_then_clicks_Pick_a_gift_card_button() {
-	    _giftCardPage.fillInNames("Rob", "Jason");
-	    _giftCardPage.clickPickagiftcard();
+	    giftCardPAGE.fillInNames("Rob", "Jason");
+	    giftCardPAGE.clickPickagiftcard();
+	    
 	}
 
 	@When("user clicks Send A Digital Card button")
 	public void user_clicks_Send_A_Digital_Card_button() {
-	    _giftCardPage.clickSendadigitalcard();
+	    giftCardPAGE.clickSendadigitalcard();
+	    
 	}
 
 	@When("user selects a Gift Card Design and clicks How much? button")
 	public void user_selects_a_Gift_Card_Design_and_clicks_How_much_button() {
-	    _giftCardPage.chooseGiftcarddesign();
-	    _giftCardPage.clickHowmuch();
+	    giftCardPAGE.chooseGiftcarddesign();
+	    giftCardPAGE.clickHowmuch();
+	    
 	}
 
 	@When("user enters an amount and quantity and clicks Add a message button")
 	public void user_enters_an_amount_and_quantity_and_clicks_Add_a_message_button() {
-	    _giftCardPage.enterAmountandQuantity(122, 4);
-	    _giftCardPage.clickAddamessage();
+	    giftCardPAGE.enterAmountandQuantity(122, 4);
+	    giftCardPAGE.clickAddamessage();
+	    
 	}
 
 	@When("user adds a personalized message and clicks Next button")
 	public void user_adds_a_personalized_message_and_clicks_Next_button() {
-	    _giftCardPage.enterMessage("Treat yourself!");
-	    _giftCardPage.clickNext();
+	    giftCardPAGE.enterMessage("Treat yourself!");
+	    giftCardPAGE.clickNext();
+	    
 	}
 
 	@When("user enters recipients email address along with a date and clicks Add to card button")
 	public void user_enters_recipients_email_address_along_with_a_date_and_clicks_Add_to_card_button() {
-	    _giftCardPage.fillInEmails("rob@mail.com");
-	    _giftCardPage.clickAddtocart();
+	    giftCardPAGE.fillInEmails("rob@mail.com");
+	    giftCardPAGE.clickAddtocart();
+	    
 	}
 
 	@Then("user is redirected to Review Your Cart page")
 	public void user_is_redirected_to_Review_Your_Cart_page() {
-	    _giftCardPage.inGiftCardPage();
+	    giftCardPAGE.inGiftCardPage();
 	    
 	}
 	

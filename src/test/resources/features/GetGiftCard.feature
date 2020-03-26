@@ -1,4 +1,4 @@
-@testGiftCard
+@testGetGiftCard
 Feature: UberEats gift card functionality
 
 Scenario: Get an UberEats gift card on the UberEats website
